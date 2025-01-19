@@ -1,0 +1,1 @@
+- Cheeky chap with a flair for the dramatic, gifted in the ancient art of Hamon (yes, it's real). Known for outsmarting supernatural foes by predicting their next moves and occasionally fleeing when they've got bigger muscles than I do. Eager to bring my high-spirited attitude and cunning tactics into a professional environment.

@@ -1,0 +1,1 @@
+- **Stand-Up Comedian Medal**: For unmatched wit under pressure during bizarre battles

@@ -1,0 +1,1 @@
+- **Ripple Hero Award**: For outwitting vampires using Hamon with record-breaking efficiency

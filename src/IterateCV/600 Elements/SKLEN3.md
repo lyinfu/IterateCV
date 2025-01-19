@@ -1,0 +1,1 @@
+- **Adaptive Communication**: Conducted high-energy banter mid-battle, ensuring allies stayed motivated even when facing ancient, shirtless adversaries

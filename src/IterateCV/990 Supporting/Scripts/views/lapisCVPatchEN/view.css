@@ -1,0 +1,16 @@
+body {
+    --default-font: "Cambria", serif;
+    --link-font: var(--default-font);
+    --list-indent: 2em;
+    --line-height: 1.25;
+    --text-align: justify;
+    --h1-size: 20pt;
+}
+
+h2, .markdown-rendered h2 {
+    font-family: var(--default-font);
+}
+
+ul > li, ol > li {
+    text-align: var(--text-align);
+}

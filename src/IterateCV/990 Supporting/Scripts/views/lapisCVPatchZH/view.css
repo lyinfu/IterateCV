@@ -1,0 +1,42 @@
+body {
+    --default-font: "Source Han Sans CN", "Microsoft YaHei", "STXihei", sans-serif;
+    --link-font: var(--default-font);
+    --list-indent: 2em;
+    --line-height: 1.25;
+    --text-align: unset;
+    --h1-size: 20pt;
+    --avatar-height: 30mm;
+}
+
+h2, .markdown-rendered h2 {
+    font-family: var(--default-font);
+}
+
+ul > li, ol > li {
+    text-align: var(--text-align);
+}
+
+
+/* Avatar */
+
+img[alt="avatar"] {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    float: right;
+    object-fit: cover;
+    overflow: hidden;
+
+    width: unset;
+    height: var(--avatar-height);
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+  }
+
+  @media print {
+    img[alt="avatar"] {
+      top: 0mm;
+      right: 15mm;
+    }
+  }

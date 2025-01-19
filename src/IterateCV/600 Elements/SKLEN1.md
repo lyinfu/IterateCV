@@ -1,0 +1,1 @@
+- **Creative Problem-Solving**: Outsmarted well-sculpted Pillar Men by improvising madcap strategies involving scarves, coconuts, and plenty of bravado

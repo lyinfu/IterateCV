@@ -61,8 +61,22 @@ function toResourceURL(dv, target) {
 class RendererMixin {
     newlineHeight = null;
 
+    async linkFileExists(link) {
+        if (link.type !== 'file') {
+            return false;
+        }
+        return await app.vault.adapter.exists(link.path);
+    }
+
     sortByStartDate() {
-        return (a, b) => this.dv.page(b).StartDate - this.dv.page(a).StartDate;
+        return (a, b) => {
+            let pa = this.dv.page(a);
+            let pb = this.dv.page(b);
+            if (!pa || !pb) {
+                return NaN;
+            }
+            return pb.StartDate - pa.StartDate
+        };
     }
 
     getAllOutlinks(rawLink) {

@@ -4,56 +4,55 @@ NewlineHeight:
 ---
 
 ```dataviewjs
-const cvRenderPath = app.vault.adapter.basePath + '/990 Supporting/Scripts/render/cvRenderZH.js';
-const cvRender = require(cvRenderPath);
-var renderer = new cvRender.Renderer(dv);
+const scriptsDir = app.vault.adapter.basePath + '/990 Supporting/Scripts';
+const main = require(scriptsDir + '/main.js');
+let mgr = main.init(dv);
 
-await dv.view('990 Supporting/Scripts/views/lapisCV');
-await dv.view('990 Supporting/Scripts/views/lapisCVPatchZH');
+await mgr.loadView('views/lapisCV');
+await mgr.loadView('views/lapisCVPatchZH');
 
+let rndr = mgr.initRenderer('render/cvRenderZH');
+rndr.newlineHeight = mgr.fm.NewlineHeight;
 
-let render_file = dv.current().file.frontmatter.RenderFile;
-renderer.newlineHeight = dv.current().file.frontmatter.NewlineHeight;
+let allOutlinks = mgr.getAllOutlinks(mgr.fm.RenderFile);
 
-let allOutlinks = renderer.getAllOutlinks(render_file);
-
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'PRFZH'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'EMPZH',
      'sectionName': '工作经历'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'EDUZH',
      'sectionName': '教育经历'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'AWDZH',
      'sectionName': '获奖经历'},
     {'appendNewline': false}
 );
 
-renderer.renderNewline()
+rndr.renderNewline()
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'SKLZH',
      'sectionName': '技能特长'},
     {'appendNewline': false}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'STMZH',
      'sectionName': '自我评价'},

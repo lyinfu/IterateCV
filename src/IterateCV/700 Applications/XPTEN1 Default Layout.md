@@ -4,56 +4,55 @@ NewlineHeight: 90%
 ---
 
 ```dataviewjs
-const cvRenderPath = app.vault.adapter.basePath + '/990 Supporting/Scripts/render/cvRenderEN.js';
-const cvRender = require(cvRenderPath);
-var renderer = new cvRender.Renderer(dv);
+const scriptsDir = app.vault.adapter.basePath + '/990 Supporting/Scripts';
+const main = require(scriptsDir + '/main.js');
+let mgr = main.init(dv);
 
-await dv.view('990 Supporting/Scripts/views/lapisCV');
-await dv.view('990 Supporting/Scripts/views/lapisCVPatchEN');
+await mgr.loadView('views/lapisCV');
+await mgr.loadView('views/lapisCVPatchEN');
 
+let rndr = mgr.initRenderer('render/cvRenderEN');
+rndr.newlineHeight = mgr.fm.NewlineHeight;
 
-let render_file = dv.current().file.frontmatter.RenderFile;
-renderer.newlineHeight = dv.current().file.frontmatter.NewlineHeight;
+let allOutlinks = mgr.getAllOutlinks(mgr.fm.RenderFile);
 
-let allOutlinks = renderer.getAllOutlinks(render_file);
-
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'PRFEN'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'STMEN',
      'sectionName': 'PERSONAL STATEMENT'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'EMPEN',
      'sectionName': 'PROFESSIONAL EXPERIENCE'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'EDUEN',
      'sectionName': 'EDUCATION'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'AWDEN',
      'sectionName': 'ACTIVITIES AND ACHIEVEMENTS'},
     {'appendNewline': false}
 );
 
-renderer.renderNewline()
+rndr.renderNewline()
 
-renderer.renderBatchByPrefix(
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'SKLEN',
      'sectionName': 'SKILLS AND PROFICIENCY'},

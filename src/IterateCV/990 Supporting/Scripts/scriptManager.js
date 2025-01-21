@@ -3,16 +3,24 @@ const currentFolder = __dirname;
 const vaultPath = app.vault.adapter.basePath;
 
 
+function normalizePath(p) {
+    // relative paths that Dataview accepts are always in Unix format
+    if (path.sep == '\\') {
+        return p.replace(/\\/g, '/');
+    }
+    return p;
+}
+
 function scriptsDirFull() {
   return currentFolder;
 }
 
 function scriptsDirRelative() {
-  return path.relative(vaultPath, scriptsDirFull());
+    return normalizePath(path.relative(vaultPath, scriptsDirFull()));
 }
 
 function subpathRelativeToVault(subPath) {
-  return path.join(scriptsDirRelative(), subPath)
+    return normalizePath(path.join(scriptsDirRelative(), subPath));
 }
 
 

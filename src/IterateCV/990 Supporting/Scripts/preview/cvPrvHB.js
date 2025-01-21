@@ -1,6 +1,11 @@
-// TODO: relative import
-const prvUtilPath = '/990 Supporting/Scripts/preview/util.js';
-const prvUtil = require(app.vault.adapter.basePath + prvUtilPath);
+// TODO: relative import to reuse the code
+async function render_dql(dv, dql) {
+    // there is an issue with `dv.execute(dql)`
+    // https://github.com/blacksmithgu/obsidian-dataview/issues/2092
+    // TODO: check type and try/catch
+    var rst = await dv.tryQuery(dql);
+    dv.table(rst.headers, rst.values);
+}
 
 const dqlEmp = `
 TABLE WITHOUT ID
@@ -86,15 +91,15 @@ SORT Item DESC
 
 async function prvRender(dv) {
     dv.header(2, 'Professional Experience');
-    await prvUtil.render_dql(dv, dqlEmp);
+    await render_dql(dv, dqlEmp);
     dv.header(2, 'Education');
-    await prvUtil.render_dql(dv, dqlEdu);
+    await render_dql(dv, dqlEdu);
     dv.header(2, 'Activities and Achievements');
-    await prvUtil.render_dql(dv, dqlAwd);
+    await render_dql(dv, dqlAwd);
     dv.header(2, 'Skills');
-    await prvUtil.render_dql(dv, dqlSkl);
+    await render_dql(dv, dqlSkl);
     dv.header(2, 'Persoanl Statement');
-    await prvUtil.render_dql(dv, dqlStm);
+    await render_dql(dv, dqlStm);
 }
 
 await prvRender(dv);

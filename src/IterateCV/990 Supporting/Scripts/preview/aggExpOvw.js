@@ -1,9 +1,6 @@
 // TODO: relative import
-const path = require('path');
-const prvUtilPath = path.join(
-    app.vault.adapter.basePath,
-    '990 Supporting', 'Scripts', 'preview', 'util.js');
-const prvUtil = require(prvUtilPath);
+const prvUtilPath = '/990 Supporting/Scripts/preview/util.js';
+const prvUtil = require(app.vault.adapter.basePath + prvUtilPath);
 
 const dqlMain = `
 TABLE WITHOUT ID

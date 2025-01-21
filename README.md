@@ -65,31 +65,31 @@ That's it. It's more for storing file connections, which means usually it should
 
 When you want to export your CV to other people, you use a layout describing file, like [this one](src/IterateCV/700 Applications/XPTEN1 Default Layout.md)
 
-```md
+````md
 ---
 RenderFile: "[[RSMEN2 Modified]]"
 NewlineHeight: 90%
 ---
 
-...
-let render_file = dv.current().file.frontmatter.RenderFile;
-renderer.newlineHeight = dv.current().file.frontmatter.NewlineHeight;
-let allOutlinks = renderer.getAllOutlinks(render_file)
+```dataviewjs
+(...some logic to initialise the script...)
 
-renderer.renderBatchByPrefix(
+// this creates a section
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'PRFEN'},
     {'appendNewline': true}
 );
 
-renderer.renderBatchByPrefix(
+// this creates another section
+rndr.renderBatchByPrefix(
     {'links': allOutlinks,
      'prefix': 'STMEN',
      'sectionName': 'PERSONAL STATEMENT'},
     {'appendNewline': true}
 );
-...
 ```
+````
 
 By choose which CV file for rendering, you can reuse the layout file for many CV files. Obsidian is able to prompt you with auto completion for which file to link, and since it's in the front matter section, it won't get rendered when exporting to PDF. You can also change some frequent settings here, for example, spacing control parameters.
 

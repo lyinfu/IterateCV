@@ -13,7 +13,7 @@ function checkPrefixMatchFn(include = null, exclude = null, allow_null = true) {
         exclude = Array.isArray(exclude) ? exclude : [exclude];
     }
     return (str) => {
-        if (str === null) {
+        if (str == null) {
             return allow_null;
         }
 
@@ -149,7 +149,7 @@ class Renderer extends RendererMixin {
 
     static getStrategyTypeByPrefix(prefix) {
         const type = Renderer.prefixStrategies[prefix];
-        if (type === null) {
+        if (type == null) {
             throw new Error(`No render strategy found for prefix: ${prefix}`);
         }
         return type
@@ -157,7 +157,7 @@ class Renderer extends RendererMixin {
 
     static getStrategy(type) {
         const strategy = Renderer.renderStrategies[type];
-        if (strategy === null) {
+        if (strategy == null) {
             throw new Error(`No render strategy found for prefix: ${type}`);
         }
         return strategy

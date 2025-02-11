@@ -166,7 +166,7 @@ For example, `EMPEN1 Speedwagon 1.md`
 - Re-export happens more often
 
 ## Installation
-1. ~~Download the archive from the release page~~ (at this stage, download [the project subdirectory](<src/IterateCV>) directly)
+1. Download the archive from the release page (alternatively, download [the project source subdirectory](<src/IterateCV>) directly)
 2. Open the folder in Obsidian
 3. Install the plugins: Dataview and Templater
 4. Enable JavaScript queries (DataviewJS) in the Dataview settings

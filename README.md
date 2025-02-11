@@ -2,9 +2,6 @@
 
 An Obsidian-based project that uses bi-directional links to help you manage your Markdown CV/Resume content in a modular way with version control. Connect, update, export and iterate.
 
-> [!IMPORTANT]
-> This project is at pre-release stage; major changes to the CV layout file (like `XPTEN1 Default Layout.md`, which is used for composing & exporting) is coming very soon.
-
 ## Basic Elements
 
 Basically, everything is inside a Markdown container

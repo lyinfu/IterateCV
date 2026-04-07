@@ -1,7 +1,9 @@
 const scMgr = require('./scriptManager');
+const {setDV} = require('./common/dvAdaptor');
 
 function init(dv) {
-    return new scMgr.ScriptManager(dv);
+    setDV(dv);
+    return new scMgr.ScriptManager();
 }
 
 module.exports = {

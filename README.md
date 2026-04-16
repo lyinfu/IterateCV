@@ -2,16 +2,21 @@
 
 An Obsidian-based project that uses bi-directional links to help you manage your Markdown CV/Resume content in a modular way with version control. Connect, update, export and iterate.
 
-## Basic Elements
+> [!NOTE]
+>
+> There has been several changes to the CV/template formats. Document updates are on the way.
 
-Basically, everything is inside a Markdown container
+## Basic Elements and Workflow
+
+Basically, everything is Markdown or inside a Markdown container:
 
 - Bullet points are in the format of Markdown lists
 - Experience as a Markdown file
 - CV/Resume as a Markdown file
     - Storage as a Markdown file, with Obsidian file links
     - Layout as a Markdown file
-- You define attributes you care about in Markdown front matter or Dataview metadata fields
+
+- Define attributes you care about in Markdown front matter or Dataview metadata fields
 
 ## At a Glance
 ### Screenshots
@@ -51,8 +56,12 @@ A cv looks like [this](<src/IterateCV/700 Applications/RSMEN1 Default.md>)
 
 ```md
 ...
-[[PRFEN1]]
-[[EMPEN1 Speedwagon 1.md]]
+## Personal Statement
+[[STMEN1]]
+
+## Professional Experience
+[[EMPEN1 Speedwagon 1]]
+[[EMPEN2 Stardust 1]]
 ...
 ```
 
@@ -69,22 +78,14 @@ NewlineHeight: 90%
 ---
 
 ```dataviewjs
-(...some logic to initialise the script...)
+const scriptsDir = app.vault.adapter.basePath + '/990 Supporting/Scripts';
+const main = require(scriptsDir + '/main.js');
+let mgr = main.init(dv);
+await mgr.loadView('views/lapisCV');
+await mgr.loadView('views/lapisCVPatchEN');
 
-// this creates a section
-rndr.renderBatchByPrefix(
-    {'links': allOutlinks,
-     'prefix': 'PRFEN'},
-    {'appendNewline': true}
-);
-
-// this creates another section
-rndr.renderBatchByPrefix(
-    {'links': allOutlinks,
-     'prefix': 'STMEN',
-     'sectionName': 'PERSONAL STATEMENT'},
-    {'appendNewline': true}
-);
+let tpl = mgr.getTemplate('template/en1');
+tpl.processRawLink(mgr.fm.RenderFile, {'newlineHeight': mgr.fm.NewlineHeight})
 ```
 ````
 

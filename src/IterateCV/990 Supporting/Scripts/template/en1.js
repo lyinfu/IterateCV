@@ -28,8 +28,13 @@ class ProfileNativeFormatter extends base.BlockFormatter {
         const r = nr.NativeRenderer;
         const bm = block.meta;
         dv.paragraph(`<h1>${bm.FormalName}</h1>`);
-        dv.paragraph(`<center>${bm.LinkedIn}&emsp;${bm.Mobile}&emsp;${bm.Email}<center>`);
-        dv.paragraph(`<center>${bm.Address}<center>`);
+        const contactLine = [bm.LinkedIn, bm.Mobile, bm.Email].filter(Boolean).join('&emsp;');
+        if (contactLine.length > 0) {
+            dv.paragraph(`<center>${contactLine}</center>`);
+        }
+        if (bm.Address) {
+            dv.paragraph(`<center>${bm.Address}</center>`);
+        }
         dv.paragraph(block.content.text);
     }
 }
@@ -84,7 +89,7 @@ class EducationNativeFormatter extends base.BlockFormatter {
             }
         }
         const otherStatements = bm.file.lists.filter(
-            l => l.link.subpath !== 'Core Modules' && rndUtil.isListVisible(l)
+            l => l.link.subpath !== 'Core Modules' && base.isListVisible(l)
         );
         dv.paragraph(otherStatements.text);
         const coreCourses = bm.file.lists

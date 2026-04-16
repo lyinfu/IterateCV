@@ -136,7 +136,7 @@ class BlockFormatterRegistry {
     }
 
     register(blockCls, formatterCls) {
-        if (this.registry[blockCls]) {
+        if (this.registry.has(blockCls)) {
             console.warn(`Overwriting formatter for type: ${blockCls.name}`);
         }
         this.registry.set(blockCls, formatterCls);

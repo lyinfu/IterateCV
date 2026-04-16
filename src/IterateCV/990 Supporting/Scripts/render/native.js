@@ -68,7 +68,7 @@ function headerListStrategy(block, options = {}, defaults={}) {
             curHeading = l.link.subpath;
         }
         if (curHeading !== prvHeading) {
-            title = upperCase? curHeading.toUpperCase() : curHeading;
+            const title = upperCase? curHeading.toUpperCase() : curHeading;
             dv.paragraph(`<h${level}>${title}</h${level}>`);
             prvHeading = curHeading;
         }

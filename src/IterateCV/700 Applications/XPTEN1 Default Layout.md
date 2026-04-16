@@ -11,6 +11,6 @@ await mgr.loadView('views/lapisCV');
 await mgr.loadView('views/lapisCVPatchEN');
 
 let tpl = mgr.getTemplate('template/en1');
-tpl.processRawLink(mgr.fm.RenderFile, {'newlineHeight': mgr.fm.NewlineHeight})
+await tpl.processRawLink(mgr.fm.RenderFile, {'newlineHeight': mgr.fm.NewlineHeight})
 
 ```

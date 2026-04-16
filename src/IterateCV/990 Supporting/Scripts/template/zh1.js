@@ -25,13 +25,13 @@ class ProfileNativeFormatter extends base.BlockFormatter {
         const bm = block.meta;
         dv.paragraph('<br>');
         dv.paragraph(`<h1>${bm.FormalName}</h1>`);
-        let line1 = [bm.Gender, bm.Birth, bm.LinkedIn].filter(x => x);
-        if (line1) {
-            dv.paragraph(`<center>${line1.join('&emsp;&emsp;')}<center>`);
+        let line1 = [bm.Gender, bm.Birth, bm.LinkedIn].filter(Boolean).join('&emsp;&emsp;');;
+        if (line1.length > 0) {
+            dv.paragraph(`<center>${line1}</center>`);
         }
-        let line2 = [bm.Mobile, bm.Email].filter(x => x);
-        if (line2) {
-            dv.paragraph(`<center>${line2.join('&emsp;&emsp;')}<center>`);
+        let line2 = [bm.Mobile, bm.Email].filter(Boolean).join('&emsp;');
+        if (line2.length > 0) {
+            dv.paragraph(`<center>${line2}</center>`);
         }
         if (bm.Avatar) {
             const url = r.toResourceURL(bm.Avatar);
@@ -91,7 +91,7 @@ class EducationNativeFormatter extends base.BlockFormatter {
             }
         }
         const otherStatements = bm.file.lists.filter(
-            l => l.link.subpath !== 'Core Modules' && nr.isListVisible(l)
+            l => l.link.subpath !== 'Core Modules' && base.isListVisible(l)
         );
         dv.paragraph(otherStatements.text);
         const coreCourses = bm.file.lists

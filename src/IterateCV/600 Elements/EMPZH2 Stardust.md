@@ -9,5 +9,5 @@ Position:: 超自然现象调查员
 
 ---
 ```dataviewjs
-await dv.view('/990 Supporting/Scripts/preview/aggExpOvw');
+await dv.view('/_include/iterate-cv/preview/aggExpOvw');
 ```

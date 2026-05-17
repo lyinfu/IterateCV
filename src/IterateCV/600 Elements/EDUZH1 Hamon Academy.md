@@ -12,5 +12,5 @@ ResultType:: 资格认证
 
 ---
 ```dataviewjs
-await dv.view('/990 Supporting/Scripts/preview/aggExpOvw');
+await dv.view('/_include/iterate-cv/preview/aggExpOvw');
 ```

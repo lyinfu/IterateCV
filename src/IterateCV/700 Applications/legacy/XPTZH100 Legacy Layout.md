@@ -8,7 +8,7 @@ NewlineHeight:
 > This file format is deprecated. Please do not use for new CV files.
 
 ```dataviewjs
-const scriptsDir = app.vault.adapter.basePath + '/990 Supporting/Scripts';
+const scriptsDir = app.vault.adapter.basePath + '/_include/iterate-cv';
 const main = require(scriptsDir + '/main.js');
 let mgr = main.init(dv);
 

@@ -1,4 +1,5 @@
 const { DVHelper: dh } = require('../common/dvAdaptor');
+const util = require('../common/util');
 
 class Block {
     constructor(data) {
@@ -23,47 +24,15 @@ class Block {
 
 }
 
-function parseBlockType(blockId) {
-    const match = blockId.match(/([a-zA-Z]+)\d+/);
-    return match ? match[1] : null;
-}
-
-function parseBlockId(title) {
-    title = title || '';
-    return title.split(' ')[0];
-}
-
-function isHidden(str) {
-    // dot will be stripped by dataview; that's why to use dash instead
-    return str?.startsWith('-') || false;
-}
-
-function isListVisible(list) {
-    return !isHidden(list.link.subpath)
-}
-
-function sortBlockDate(metaA, metaB) {
-    if (!metaA || !metaB) {
-        return NaN;
-    }
-    if ('StartDate' in metaA || 'StartDate' in metaB) {
-        return metaB.StartDate - metaA.StartDate;
-    }
-    if ('EventDate' in metaA || 'EventDate' in metaB) {
-        return metaB.EventDate - metaA.EventDate;
-    }
-    return NaN;
-}
-
 class MdBlock extends Block {
     static type = null;
 
     get id() {
-        return parseBlockId(this.data.file.name);
+        return util.parseBlockId(this.data.file.name);
     }
 
     get type() {
-        return this.constructor.type ?? parseBlockType(this.id);
+        return this.constructor.type ?? util.parseBlockType(this.id);
     }
 
     get meta() {
@@ -71,7 +40,7 @@ class MdBlock extends Block {
     }
 
     get content() {
-        var lists = this.data.file.lists.filter(isListVisible);
+        var lists = this.data.file.lists.filter(util.isListVisible);
         return lists;
     }
 
@@ -97,16 +66,25 @@ class BlockClassRegistry {
         return this.registry.get(type);
     }
 
-    resolveByPage(page, fallback = MdBlock) {
-        const id = parseBlockId(page.file.name);
-        const type = parseBlockType(id);
-        return this.registry.get(type) || fallback;
+    resolveByPage(page, fallback = undefined) {
+        const id = util.parseBlockId(page.file.name);
+        const type = util.parseBlockType(id);
+        let blockClass = this.registry.get(type);
+        if (!blockClass) {
+            if (fallback) {
+                console.warn(`No block class registered for type: ${type}, using fallback`);
+                blockClass = fallback;
+            } else {
+                throw new Error(`No block class registered for type: ${type}, and no fallback provided`);
+            }
+        }
+        return blockClass;
     }
 }
 
 
 class BlockFactory {
-    constructor(blockClassRegistry, fallback = MdBlock) {
+    constructor(blockClassRegistry, fallback = undefined) {
         this.blockClassRegistry = blockClassRegistry;
         this.fallback = fallback;
     }
@@ -207,7 +185,10 @@ function parseLinkGrouping(text, filterEmpty = true) {
 class MdSection extends Section {
 
     static parser = parseLinkGrouping;
-    static sortFn = sortBlockDate;
+
+    static sortFn(blocks) {
+        return blocks.sort((a, b) => util.sortBlockDate(a.meta, b.meta));
+    };
 
     static async fromRawLink(rawLink, blockFactory) {
         const dv = dh.dv;
@@ -228,7 +209,7 @@ class MdSection extends Section {
             }
             let blocks = g['links'].map(l => blockFactory.fromLink(l));
             if (typeof this.sortFn === 'function') {
-                blocks = blocks.sort((a, b) => this.sortFn(a.meta, b.meta));
+                blocks = this.sortFn(blocks);
             }
             sections.push(new this(sectionName, blocks, options));
         }
@@ -245,8 +226,8 @@ class PageSpec {
 
 class MdPageSpec extends PageSpec {
 
-    static async fromRawLink(rawLink, blockFactory) {
-        return new this(await MdSection.fromRawLink(rawLink, blockFactory));
+    static async fromRawLink(rawLink, blockFactory, sectionCls = MdSection) {
+        return new this(await sectionCls.fromRawLink(rawLink, blockFactory));
     }
 }
 
@@ -275,8 +256,4 @@ module.exports = {
     MdBlock,
     BlockFormatter,
     BlockFormatterRegistry,
-    isListVisible,
-    parseBlockType,
-    parseLinkGrouping,
-    sortBlockDate
 }

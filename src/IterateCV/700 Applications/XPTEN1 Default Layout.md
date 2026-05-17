@@ -4,7 +4,7 @@ NewlineHeight: 90%
 ---
 
 ```dataviewjs
-const scriptsDir = app.vault.adapter.basePath + '/990 Supporting/Scripts';
+const scriptsDir = app.vault.adapter.basePath + '/_include/iterate-cv';
 const main = require(scriptsDir + '/main.js');
 let mgr = main.init(dv);
 await mgr.loadView('views/lapisCV');

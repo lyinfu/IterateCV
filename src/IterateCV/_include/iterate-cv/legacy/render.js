@@ -1,4 +1,5 @@
 const base = require('../common/base');
+const util = require('../common/util');
 const nr = require('../render/native');
 const { DVHelper: dh } = require('../common/dvAdaptor');
 
@@ -28,7 +29,7 @@ class LegacyRenderer {
         } = args;
 
         if (sort) {
-            links = links.sort((a, b) => base.sortBlockDate(dh.dv.page(a), dh.dv.page(b)));
+            links = links.sort((a, b) => util.sortBlockDate(dh.dv.page(a), dh.dv.page(b)));
         }
         if (prefix != null) {
             if (filterByPrefix) {

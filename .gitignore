@@ -3,7 +3,7 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
-src/IterateCV/990 Supporting/Scripts/custom.js
+src/IterateCV/_include/iterate-cv/custom.js
 
 # Obsidian
 .obsidian/

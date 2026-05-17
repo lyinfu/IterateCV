@@ -13,10 +13,13 @@ function normalizePath(p) {
 }
 
 function scriptsDirFull() {
-  return currentFolder;
+    return currentFolder;
 }
 
 function scriptsDirRelative() {
+    if (!currentFolder.startsWith(vaultPath)) {
+        console.warn(`IterateCV: Scripts directory ${currentFolder} is not within vault path ${vaultPath}`);
+    }
     return normalizePath(path.relative(vaultPath, scriptsDirFull()));
 }
 

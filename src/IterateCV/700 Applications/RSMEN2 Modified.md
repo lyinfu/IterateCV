@@ -1,6 +1,6 @@
 
 ```dataviewjs
-await dv.view('/990 Supporting/Scripts/preview/cvPrvHB');
+await dv.view('/_include/iterate-cv/preview/cvPrvHB');
 ```
 
 ---

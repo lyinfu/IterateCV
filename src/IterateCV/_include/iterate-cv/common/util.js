@@ -28,7 +28,7 @@ function isListVisible(list) {
 function getFileLinkName(link) {
     const dv = dh.dv;
     if (dv.value.isLink(link)) {
-        if (!link.type === 'file') {
+        if (link.type !== 'file') {
             throw new Error(`${link} is not a file link`);
         }
         if (link.display) {
@@ -50,6 +50,9 @@ function sortBlockDate(metaA, metaB) {
     if ('StartDate' in metaA || 'StartDate' in metaB) {
         return metaB.StartDate - metaA.StartDate;
     }
+     if ('EventDate' in metaA || 'EventDate' in metaB) {
+         return metaB.EventDate - metaA.EventDate;
+     }
     return NaN;
 }
 
